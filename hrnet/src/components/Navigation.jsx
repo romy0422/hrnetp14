@@ -5,19 +5,22 @@ const NavigationContainer = styled.nav`
     display:flex;
     justify-content: center;
     gap:20px;
-    padding: 5px 20px;
-    font-size:1.5em;
 `
 const StyledLink = styled(NavLink)`
     text-decoration: none;
     color: black;
+    flex:0.2;
     width:300px;
-    background-color: #e8fd9d;
+    background-color: #bdf0c5;
     border-radius: 15px;
     font-weight: 400;
-    padding: 10px 20px;
+    vertical-align:middle;
+    text-align:center;
+    padding:10px;
+
     &.active {
-        background-color: #baf000;
+        border:7px solid #baf000;
+        padding:3px;
         color: #000000;
     }
 
