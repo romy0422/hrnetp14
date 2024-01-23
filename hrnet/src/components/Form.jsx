@@ -1,6 +1,18 @@
 import styled from "styled-components";
 
+const FormContainer = styled.div`
+    background-color:rgba(182, 255, 164, 0.8);;
+    padding:20px;
+    font-size:1.5em;
+    border-radius:10px;
+    width:300px;
 
+    input{
+        width:250px;
+        height:30px;
+        font-size:1em;
+    }
+`;
 
 const Label =  styled.label
 `
@@ -12,7 +24,7 @@ const Label =  styled.label
 
 const Adress = styled.fieldset`
     margin-top: 10px;
-`
+`;
 
 
 
@@ -20,7 +32,7 @@ const Adress = styled.fieldset`
 
 const Form = () => {
 
-    return <>
+    return <FormContainer>
         <form action="#" id="create-employee">
                 <Label htmlFor="first-name">First Name</Label>
                 <input type="text" id="first-name" />
@@ -59,7 +71,7 @@ const Form = () => {
                     <option>Legal</option>
                 </select>
             </form>
-        </>
+        </FormContainer>
 }
 
 export default Form;

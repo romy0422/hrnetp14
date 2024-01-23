@@ -55,7 +55,6 @@ const Table = ({ columns, data }) => {
     page,
     canPreviousPage,
     canNextPage,
-    pageOptions,
     pageCount,
     gotoPage,
     nextPage,
@@ -200,7 +199,7 @@ const GlobalFilter = ({
       <input
         value={globalFilter || ''}
         onChange={e => setGlobalFilter(e.target.value)}
-        placeholder={`${preGlobalFilteredRows.length} enregistrements...`}
+        placeholder={`${preGlobalFilteredRows.length} elements...`}
       />
     </span>
   );
