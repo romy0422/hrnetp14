@@ -1,8 +1,18 @@
-import './App.css';
 import ProvideRoutes from './routes/ProvideRoutes';
+import Navigation from './components/Navigation';
+import styled from 'styled-components';
+
+const StyledH1 = styled.h1`
+  width:100%;
+  text-align:center;
+  font-size:4em;
+`
 function App() {
-  return (
+  return (<>
+    <StyledH1>HRNet</StyledH1>
+    <Navigation/>
     <ProvideRoutes/>
+    </>
   );
 }
 
