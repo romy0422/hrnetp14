@@ -2,19 +2,21 @@
 import { useMemo, useState, useEffect } from 'react';
 import Table from '../modules/Table';
 import { fetchData } from '../serviceApi/service';
-
+import { useDispatch, useSelector } from 'react-redux';
+import { setData, setError } from '../reduxCode/dataSlice';
 const List = () => {
-    const [data, setData] = useState([]);
-    const [error, setError] = useState('');
-
+    const data = useSelector((state) => state.data.items);
+    const errorMessage = useSelector((state) => state.data.error);
+  
+    const dispatch = useDispatch();
     useEffect(() => {
       const getData = async () => {
         try {
           const fetchedData = await fetchData();
-          setData(fetchedData);
+          dispatch(setData(fetchedData));
         } catch (error) {
-          setError('Erreur lors de la récupération des données');
-          console.error(error);
+          dispatch(setError('Erreur lors de la récupération des données'));
+          console.log(errorMessage);
         }
       };
   
