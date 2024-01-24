@@ -13,9 +13,12 @@ export const dataSlice = createSlice({
     setError: (state, action) => {
       state.error = action.payload;
     },
+    addItem: (state, action) => {
+        state.items.push(action.payload);
+    },
   },
 });
 
-export const { setData, setError } = dataSlice.actions;
+export const { setData, setError, addItem } = dataSlice.actions;
 
 export default dataSlice.reducer;

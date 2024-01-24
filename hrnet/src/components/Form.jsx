@@ -1,4 +1,7 @@
 import styled from "styled-components";
+import { useDispatch } from "react-redux";
+import { useState } from "react";
+import { addItem } from "../reduxCode/dataSlice";
 
 const FormContainer = styled.div`
     background-color:rgba(182, 255, 164, 0.8);;
@@ -26,50 +29,91 @@ const Adress = styled.fieldset`
     margin-top: 10px;
 `;
 
-
+const ButtonStyle = styled.button`
+    width:100%;
+`
 
 
 
 const Form = () => {
-
+    const dispatch = useDispatch();
+    const [formData, setFormData] = useState({
+        firstName: '',
+        lastName: '',
+        dateOfBirth: '',
+        startDate: '',
+        street: '',
+        city: '',
+        state: '',
+        zipCode: '',
+        department: '',
+      });
+    
+      const handleChange = (e) => {
+        setFormData({ ...formData, [e.target.id]: e.target.value });
+      };
+    
+      const handleSubmit = (e) => {
+        e.preventDefault();
+        dispatch(addItem(formData));
+        setFormData({
+          firstName: '',
+          lastName: '',
+          dateOfBirth: '',
+          startDate: '',
+          street: '',
+          city: '',
+          state: '',
+          zipCode: '',
+          department: '',
+        });
+      };
+      
     return <FormContainer>
-        <form action="#" id="create-employee">
-                <Label htmlFor="first-name">First Name</Label>
-                <input type="text" id="first-name" />
+        <form  onSubmit={handleSubmit} id="create-employee">
+                <Label htmlFor="firstName">First Name</Label>
+                <input type="text" id="firstName" value={formData.firstName} onChange={handleChange}/>
 
-                <Label htmlFor="last-name">Last Name</Label>
-                <input type="text" id="last-name" />
+                <Label htmlFor="lastName">Last Name</Label>
+                <input type="text" id="lastName"value={formData.lastName} onChange={handleChange} />
 
-                <Label htmlFor="date-of-birth">Date of Birth</Label>
-                <input id="date-of-birth" type="text"/>
+                <Label htmlFor="dateOfBirth">Date of Birth</Label>
+                <input id="dateOfBirth" type="text" value={formData.dateOfBirth} onChange={handleChange}/>
 
-                <Label htmlFor="start-date">Start Date</Label>
-                <input id="start-date" type="text"/>
+                <Label htmlFor="startDate">Start Date</Label>
+                <input id="startDate" type="text" value={formData.startDate} onChange={handleChange} />
 
                 <Adress className="adress">
                     <legend>Adress</legend>
 
                     <Label htmlFor="street">Street</Label>
-                    <input id="street" type="text" />
+                    <input id="street" type="text" value={formData.street} onChange={handleChange}/>
 
                     <Label htmlFor="city">City</Label>
-                    <input id="city" type="text" />
+                    <input id="city" type="text"value={formData.city} onChange={handleChange} />
 
                     <Label htmlFor="state">State</Label>
-                    <select name="state" id="state"></select>
+                    <select name="state" id="state"value={formData.state} onChange={handleChange}>
+                    <option>United State</option>
+                    <option>France</option>
+                    <option>Espagne</option>
+                    <option>Italie</option>
+                    <option>Portugal</option>
+                    </select>
 
-                    <Label htmlFor="zip-code">Zip Code</Label>
-                    <input id="zip-code" type="number" />
+                    <Label htmlFor="zipCode">Zip Code</Label>
+                    <input id="zipCode" type="number"value={formData.zipCode} onChange={handleChange} />
                 </Adress>
 
                 <Label htmlFor="department">Department</Label>
-                <select name="department" id="department">
+                <select name="department" id="department" value={formData.department} onChange={handleChange}>
                     <option>Sales</option>
                     <option>Marketing</option>
                     <option>Engineering</option>
                     <option>Human Resources</option>
                     <option>Legal</option>
                 </select>
+                <ButtonStyle type="submit">Submit</ButtonStyle>
             </form>
         </FormContainer>
 }

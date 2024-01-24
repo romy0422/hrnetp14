@@ -1,88 +1,48 @@
 
-import { useMemo, useState, useEffect } from 'react';
+import { useMemo, useEffect } from 'react';
 import Table from '../modules/Table';
 import { fetchData } from '../serviceApi/service';
 import { useDispatch, useSelector } from 'react-redux';
 import { setData, setError } from '../reduxCode/dataSlice';
+
 const List = () => {
-    const data = useSelector((state) => state.data.items);
-    const errorMessage = useSelector((state) => state.data.error);
-  
     const dispatch = useDispatch();
+    const errorMessage = useSelector((state) => state.data.error);
+    const data = useSelector((state) => state.data.items);
+
     useEffect(() => {
-      const getData = async () => {
-        try {
-          const fetchedData = await fetchData();
-          dispatch(setData(fetchedData));
-        } catch (error) {
-          dispatch(setError('Erreur lors de la récupération des données'));
-          console.log(errorMessage);
-        }
-      };
-  
+      if (data.length === 0) {
+        const getData = async () => {
+          try {
+            const fetchedData = await fetchData();
+            dispatch(setData(fetchedData));
+          } catch (error) {
+            console.error(error);
+            dispatch(setError('Erreur lors de la récupération des données'));
+          }
+        };
       getData();
-    }, []);
+       }
+      }, [dispatch, data.length]);
 
-    const columns = useMemo(
-        () => [
-          {
-            Header: 'First Name',
-            accessor: 'firstName',
-          },
-          {
-            Header: 'Last Name',
-            accessor: 'lastName',
-          },
-          {
-            Header: 'Start Date',
-            accessor: 'startDate',
-          },
-          {
-            Header: 'Department',
-            accessor: 'department',
-          },
-          {
-            Header: 'Date of Birth',
-            accessor: 'dateOfBirth',
-          },
-          {
-            Header: 'Street',
-            accessor: 'street',
-          },
-          {
-            Header: 'City',
-            accessor: 'city',
-          },
-          {
-            Header: 'State',
-            accessor: 'state',
-          },
-          {
-            Header: 'Zip Code',
-            accessor: 'zipCode',
-          },
-        ],
-        []
-      );
-    
-      const dataArray = useMemo(
-        () => data,
-        [data]
-      );
+    const columns = useMemo(() => [
+        { Header: 'First Name', accessor: 'firstName' },
+        { Header: 'Last Name', accessor: 'lastName' },
+        { Header: 'Start Date', accessor: 'startDate' },
+        { Header: 'Department', accessor: 'department' },
+        { Header: 'Date of Birth', accessor: 'dateOfBirth' },
+        { Header: 'Street', accessor: 'street' },
+        { Header: 'City', accessor: 'city' },
+        { Header: 'State', accessor: 'state' },
+        { Header: 'Zip Code', accessor: 'zipCode' },
+    ], []);
 
-return(
-<>
-
-<Table columns={columns} data={dataArray} />
-
-</>
-
-)
-
-
-
-
+    return (
+        <>
+            <Table columns={columns} data={data} />
+            {errorMessage && <p>Erreur : {errorMessage}</p>}
+        </>
+    );
 }
-
 
 export default List;
