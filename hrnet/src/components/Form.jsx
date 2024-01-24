@@ -4,6 +4,11 @@ import { useState } from "react";
 import { addItem } from "../reduxCode/dataSlice";
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
+import Select from 'react-select';
+import { stateOptions } from "../data-utils/state-options";
+import { formattedDepartmentOptions } from '../data-utils/department-options';
+import TextField from '@mui/material/TextField';
+import Autocomplete from '@mui/material/Autocomplete';
 
 const FormContainer = styled.div`
     background-color:rgba(182, 255, 164, 0.8);;
@@ -42,13 +47,13 @@ const Form = () => {
     const [formData, setFormData] = useState({
         firstName: '',
         lastName: '',
-        dateOfBirth: '',
-        startDate: '',
+        dateOfBirth: null,
+        startDate: null,
         street: '',
         city: '',
-        state: '',
+        state: null,
         zipCode: '',
-        department: '',
+        department:null,
     });
 
     const handleChange = (e) => {
@@ -61,8 +66,8 @@ const Form = () => {
         setFormData({
             firstName: '',
             lastName: '',
-            dateOfBirth: '',
-            startDate: '',
+            dateOfBirth: null,
+            startDate: null,
             street: '',
             city: '',
             state: '',
@@ -103,26 +108,36 @@ const Form = () => {
                 <input id="city" type="text" value={formData.city} onChange={handleChange} />
 
                 <Label htmlFor="state">State</Label>
-                <select name="state" id="state" value={formData.state} onChange={handleChange}>
-                    <option>United State</option>
-                    <option>France</option>
-                    <option>Espagne</option>
-                    <option>Italie</option>
-                    <option>Portugal</option>
-                </select>
+                <Autocomplete
+                    id="state"
+                    options={stateOptions.map(state => ({
+                        label: state.name,
+                        value: state.abbreviation 
+                    }))}
+                    getOptionLabel={(option) => option.label}
+                    onChange={handleChange}
+                    value={stateOptions.find(option => option.value === formData.state) || null}
+                    renderInput={(params) => <TextField {...params} label="State" />}
+                />
 
                 <Label htmlFor="zipCode">Zip Code</Label>
                 <input id="zipCode" type="number" value={formData.zipCode} onChange={handleChange} />
             </Adress>
 
             <Label htmlFor="department">Department</Label>
-            <select name="department" id="department" value={formData.department} onChange={handleChange}>
-                <option>Sales</option>
-                <option>Marketing</option>
-                <option>Engineering</option>
-                <option>Human Resources</option>
-                <option>Legal</option>
-            </select>
+           
+            <Autocomplete
+                    id="department"
+                    options={formattedDepartmentOptions}
+                    getOptionLabel={(option) => option.label}
+                    value={formattedDepartmentOptions.find(option => option.value === formData.department) || null}
+                    onChange={(event, newValue) => {
+                        setFormData({ ...formData, department: newValue ? newValue.value : '' });
+                    }}
+                    renderInput={(params) => <TextField {...params} label="Department" />}
+                />
+
+
             <ButtonStyle type="submit">Submit</ButtonStyle>
         </form>
     </FormContainer>
