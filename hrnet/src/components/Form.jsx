@@ -4,14 +4,13 @@ import { useState } from "react";
 import { addItem } from "../reduxCode/dataSlice";
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-import Select from 'react-select';
 import { stateOptions } from "../data-utils/state-options";
 import { formattedDepartmentOptions } from '../data-utils/department-options';
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 
 const FormContainer = styled.div`
-    background-color:rgba(182, 255, 164, 0.8);;
+    background-color:#ceffde;
     padding:20px;
     font-size:1.5em;
     border-radius:10px;
@@ -38,6 +37,10 @@ const Adress = styled.fieldset`
 
 const ButtonStyle = styled.button`
     width:100%;
+    padding:10px;
+    border-radius:15px;
+    margin:20px auto;
+    font-size:1em;
 `
 
 
@@ -115,8 +118,10 @@ const Form = () => {
                         value: state.abbreviation 
                     }))}
                     getOptionLabel={(option) => option.label}
-                    onChange={handleChange}
-                    value={stateOptions.find(option => option.value === formData.state) || null}
+                    onChange={(event, newValue) => {
+                        setFormData({ ...formData, state: newValue ? newValue.value : '' });
+                    }}
+                    value={stateOptions.find(option => option.value) || null}
                     renderInput={(params) => <TextField {...params} label="State" />}
                 />
 
