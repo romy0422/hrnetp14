@@ -45,8 +45,9 @@ const ButtonStyle = styled.button`
 
 
 
-const Form = () => {
+const Form = ({statusModal}) => {
     const dispatch = useDispatch();
+  
     const [formData, setFormData] = useState({
         firstName: '',
         lastName: '',
@@ -77,6 +78,7 @@ const Form = () => {
             zipCode: '',
             department: '',
         });
+        statusModal(true);
     };
 
     return <FormContainer>

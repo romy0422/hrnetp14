@@ -1,5 +1,7 @@
 import styled from "styled-components";
 import Form from "../components/Form";
+import { UtilModal } from 'utilmodal';
+import { useState } from 'react';
 
 const H1Title = styled.h1`
     display: flex;
@@ -17,15 +19,22 @@ const Container = styled.div`
 `
 const Home = () => {
 
-return(
-<>
-<H1Title>CREATE EMPLOYEE</H1Title>
-<Container>
-<Form/>
-</Container>
-</>
+    const [isOpen, setIsOpen] = useState(false);
+    const onClose = () => {
+        setIsOpen(false);
+    }
+    return (
+        <>
+            <UtilModal isOpen={isOpen} onClose={onClose} theme="green">
+                Je suis une modal!
+            </UtilModal>
+            <H1Title>CREATE EMPLOYEE</H1Title>
+            <Container>
+                <Form statusModal={setIsOpen} />
+            </Container>
+        </>
 
-)
+    )
 
 
 

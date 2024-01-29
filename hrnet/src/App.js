@@ -24,7 +24,6 @@ const ImgContainer = styled.div`
 `;
 function App() {
   return (<>
-  
   <ImgContainer>
     <StyledH1>HRNet</StyledH1>
     <Navigation/>
