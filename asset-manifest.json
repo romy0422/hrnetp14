@@ -1,16 +1,16 @@
 {
   "files": {
-    "main.css": "/static/css/main.979fcd30.css",
-    "main.js": "/static/js/main.e8dd5835.js",
-    "static/js/787.92a4d0b6.chunk.js": "/static/js/787.92a4d0b6.chunk.js",
-    "static/media/logo-hrnet.jpg": "/static/media/logo-hrnet.550a61bba16a38a1d91d.jpg",
-    "index.html": "/index.html",
-    "main.979fcd30.css.map": "/static/css/main.979fcd30.css.map",
-    "main.e8dd5835.js.map": "/static/js/main.e8dd5835.js.map",
-    "787.92a4d0b6.chunk.js.map": "/static/js/787.92a4d0b6.chunk.js.map"
+    "main.css": "/hrnetp14/static/css/main.979fcd30.css",
+    "main.js": "/hrnetp14/static/js/main.1d9ee132.js",
+    "static/js/787.92a4d0b6.chunk.js": "/hrnetp14/static/js/787.92a4d0b6.chunk.js",
+    "static/media/logo-hrnet.jpg": "/hrnetp14/static/media/logo-hrnet.550a61bba16a38a1d91d.jpg",
+    "index.html": "/hrnetp14/index.html",
+    "main.979fcd30.css.map": "/hrnetp14/static/css/main.979fcd30.css.map",
+    "main.1d9ee132.js.map": "/hrnetp14/static/js/main.1d9ee132.js.map",
+    "787.92a4d0b6.chunk.js.map": "/hrnetp14/static/js/787.92a4d0b6.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.979fcd30.css",
-    "static/js/main.e8dd5835.js"
+    "static/js/main.1d9ee132.js"
   ]
 }
