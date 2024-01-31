@@ -10,7 +10,7 @@ import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 
 const FormContainer = styled.div`
-    background-color:#ceffde;
+    background-color:#e0ede9;
     padding:20px;
     font-size:1.5em;
     border-radius:10px;
