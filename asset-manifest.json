@@ -1,16 +1,16 @@
 {
   "files": {
     "main.css": "/static/css/main.979fcd30.css",
-    "main.js": "/static/js/main.f653a934.js",
+    "main.js": "/static/js/main.e8dd5835.js",
     "static/js/787.92a4d0b6.chunk.js": "/static/js/787.92a4d0b6.chunk.js",
     "static/media/logo-hrnet.jpg": "/static/media/logo-hrnet.550a61bba16a38a1d91d.jpg",
     "index.html": "/index.html",
     "main.979fcd30.css.map": "/static/css/main.979fcd30.css.map",
-    "main.f653a934.js.map": "/static/js/main.f653a934.js.map",
+    "main.e8dd5835.js.map": "/static/js/main.e8dd5835.js.map",
     "787.92a4d0b6.chunk.js.map": "/static/js/787.92a4d0b6.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.979fcd30.css",
-    "static/js/main.f653a934.js"
+    "static/js/main.e8dd5835.js"
   ]
 }
