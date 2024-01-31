@@ -51,8 +51,8 @@ const Form = ({statusModal}) => {
     const [formData, setFormData] = useState({
         firstName: '',
         lastName: '',
-        dateOfBirth: null,
-        startDate: null,
+        dateOfBirth: new Date(),
+        startDate: new Date(),
         street: '',
         city: '',
         state: null,
@@ -70,8 +70,8 @@ const Form = ({statusModal}) => {
         setFormData({
             firstName: '',
             lastName: '',
-            dateOfBirth: null,
-            startDate: null,
+            dateOfBirth: '',
+            startDate: '',
             street: '',
             city: '',
             state: '',
@@ -91,17 +91,18 @@ const Form = ({statusModal}) => {
 
             <Label htmlFor="dateOfBirth">Date of Birth</Label>
             <DatePicker
-                selected={formData.dateOfBirth}
-                onChange={date => setFormData({ ...formData, dateOfBirth: date })}
+                selected={formData.dateOfBirth ? new Date(formData.dateOfBirth) : null}
+                onChange={date => setFormData({ ...formData, dateOfBirth: date ? date.toLocaleDateString() : '' })}
                 dateFormat="dd/MM/yyyy"
             />
 
             <Label htmlFor="startDate">Start Date</Label>
             <DatePicker
-                selected={formData.startDate}
-                onChange={date => setFormData({ ...formData, startDate: date })}
+                selected={formData.startDate ? new Date(formData.startDate) : null}
+                onChange={date => setFormData({ ...formData, startDate: date ? date.toLocaleDateString() : '' })}
                 dateFormat="dd/MM/yyyy"
             />
+
 
             <Adress className="adress">
                 <legend>Adress</legend>
@@ -117,14 +118,14 @@ const Form = ({statusModal}) => {
                     id="state"
                     options={stateOptions.map(state => ({
                         label: state.name,
-                        value: state.abbreviation 
+                        value: state.name 
                     }))}
                     getOptionLabel={(option) => option.label}
                     onChange={(event, newValue) => {
                         setFormData({ ...formData, state: newValue ? newValue.value : '' });
                     }}
-                    value={stateOptions.find(option => option.value) || null}
-                    renderInput={(params) => <TextField {...params} label="State" />}
+                    value={stateOptions.find(option => option.value === formData.state) || null}
+                    renderInput={(params) => <TextField {...params} label={formData.state || "State"} />}
                 />
 
                 <Label htmlFor="zipCode">Zip Code</Label>
@@ -141,7 +142,7 @@ const Form = ({statusModal}) => {
                     onChange={(event, newValue) => {
                         setFormData({ ...formData, department: newValue ? newValue.value : '' });
                     }}
-                    renderInput={(params) => <TextField {...params} label="Department" />}
+                    renderInput={(params) => <TextField {...params} label={formData.department || "department" }/>}
                 />
 
 

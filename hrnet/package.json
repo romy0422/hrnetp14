@@ -1,7 +1,7 @@
 {
   "name": "hrnet",
   "version": "0.1.0",
-  "home": "https://romy0422.github.io/hrnetp14",
+  "homepage": "https://romy0422.github.io/hrnetp14",
   "private": true,
   "dependencies": {
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11",

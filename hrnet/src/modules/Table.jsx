@@ -38,7 +38,7 @@ const HeaderTable = styled.div`
  justify-content: space-between;
 `;
 
-const FooterTable= styled.div`
+const FooterTable = styled.div`
 with:100%;
 display:flex;
 justify-content: space-between;
@@ -73,16 +73,16 @@ const Table = ({ columns, data }) => {
     usePagination
   );
 
-  
-      
+
+
   const firstRowOnPage = pageIndex * pageSize + 1;
   const lastRowOnPage = pageIndex * pageSize + page.length;
   const totalRows = preGlobalFilteredRows.length;
 
   return (
     <Styles>
-       <HeaderTable>
-         <select
+      <HeaderTable>
+        <select
           value={pageSize}
           onChange={e => {
             setPageSize(Number(e.target.value));
@@ -90,15 +90,15 @@ const Table = ({ columns, data }) => {
         >
           {[10, 25, 50, 100, 200].map(pageSize => (
             <option key={pageSize} value={pageSize}>
-               {pageSize}
+              {pageSize}
             </option>
           ))}
         </select>
         <GlobalFilter
-        preGlobalFilteredRows={preGlobalFilteredRows}
-        globalFilter={globalFilter}
-        setGlobalFilter={setGlobalFilter}
-      />
+          preGlobalFilteredRows={preGlobalFilteredRows}
+          globalFilter={globalFilter}
+          setGlobalFilter={setGlobalFilter}
+        />
       </HeaderTable>
       <table {...getTableProps()}>
         <thead>
@@ -116,26 +116,28 @@ const Table = ({ columns, data }) => {
             return (
               <tr {...row.getRowProps()}>
                 {row.cells.map(cell => {
-                  return <td {...cell.getCellProps()}>{cell.render('Cell')}</td>;
+                  const cellValue = cell.value instanceof Date ? cell.value.toLocaleDateString() : cell.render('Cell');
+                  return <td {...cell.getCellProps()}>{cellValue}</td>;
                 })}
+
               </tr>
             );
           })}
         </tbody>
       </table>
       <FooterTable>
-      <span>
-       {firstRowOnPage} to {lastRowOnPage} of {totalRows} total
-    </span>
+        <span>
+          {firstRowOnPage} to {lastRowOnPage} of {totalRows} total
+        </span>
         <Pagination
-  pageIndex={pageIndex}
-  pageCount={pageCount}
-  gotoPage={gotoPage}
-  canPreviousPage={canPreviousPage}
-  previousPage={previousPage}
-  canNextPage={canNextPage}
-  nextPage={nextPage}
-/>
+          pageIndex={pageIndex}
+          pageCount={pageCount}
+          gotoPage={gotoPage}
+          canPreviousPage={canPreviousPage}
+          previousPage={previousPage}
+          canNextPage={canNextPage}
+          nextPage={nextPage}
+        />
       </FooterTable>
     </Styles>
   );

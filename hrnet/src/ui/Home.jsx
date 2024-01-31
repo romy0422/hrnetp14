@@ -26,7 +26,7 @@ const Home = () => {
     return (
         <>
             <UtilModal isOpen={isOpen} onClose={onClose} theme="green">
-                Je suis une modal!
+                 Created Employee !
             </UtilModal>
             <H1Title>CREATE EMPLOYEE</H1Title>
             <Container>
