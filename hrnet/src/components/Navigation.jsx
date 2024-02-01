@@ -11,7 +11,7 @@ const StyledLink = styled(NavLink)`
     color: black;
     flex:0.2;
     width:300px;
-    background-color: #ffffff;
+    background-color: #d0d3df;
     border-radius: 15px;
     font-weight: 400;
     vertical-align:middle;

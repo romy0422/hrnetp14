@@ -10,16 +10,22 @@ import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 
 const FormContainer = styled.div`
-    background-color:#ffffff;
+    background-color:#d0d3df;
     padding:60px;
     font-size:1.5em;
-    border-radius:10px;
+    border-radius:25px;
     width:500px;
-    margin:auto;
+    box-shadow:2px 2px 40px rgb(0, 0,0,0.3);
+    margin:10px auto;
+    border: 1px solid #baf000;
     input{
         width:400px;
         height:30px;
+        padding:5px 10px;
         font-size:1em;
+    }
+    p{
+        color:red;
     }
 `;
 
@@ -47,7 +53,8 @@ const ButtonStyle = styled.button`
 
 const Form = ({statusModal}) => {
     const dispatch = useDispatch();
-  
+    const [errorMessage, setErrorMessage]= useState("");
+
     const [formData, setFormData] = useState({
         firstName: '',
         lastName: '',
@@ -66,19 +73,43 @@ const Form = ({statusModal}) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
+    
+        const isValid = validateForm(formData);
+        if (!isValid) {
+            setErrorMessage("Echecs: vos champs sont incorrectes")
+            return;
+        }
+    
         dispatch(addItem(formData));
         setFormData({
             firstName: '',
             lastName: '',
-            dateOfBirth: '',
-            startDate: '',
+            dateOfBirth: new Date(),
+            startDate: new Date(),
             street: '',
             city: '',
-            state: '',
+            state: null,
             zipCode: '',
-            department: '',
+            department: null,
         });
         statusModal(true);
+        setErrorMessage("");
+    };
+    
+    const validateForm = (data) => {
+        const specialCharsRegex = /[^a-zA-Z0-9 ]/;
+    
+        for (const key in data) {
+            if (typeof data[key] === 'string' && (data[key].trim() === '' || specialCharsRegex.test(data[key]))) {
+                setErrorMessage(`Invalid input in ${key}`);
+                return false;
+            }
+            if ((key === 'state' || key === 'department') && data[key] === null) {
+                setErrorMessage(`Invalid input in ${key}`);
+                return false;
+            }
+        }
+        return true;
     };
 
     return <FormContainer>
@@ -143,9 +174,8 @@ const Form = ({statusModal}) => {
                         setFormData({ ...formData, department: newValue ? newValue.value : '' });
                     }}
                     renderInput={(params) => <TextField {...params} label={formData.department || "department" }/>}
-                />
-
-
+                />  
+                <p>{errorMessage}</p>
             <ButtonStyle type="submit">Submit</ButtonStyle>
         </form>
     </FormContainer>
