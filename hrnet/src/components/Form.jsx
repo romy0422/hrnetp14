@@ -10,14 +10,14 @@ import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 
 const FormContainer = styled.div`
-    background-color:#e0ede9;
-    padding:20px;
+    background-color:#ffffff;
+    padding:60px;
     font-size:1.5em;
     border-radius:10px;
-    width:300px;
-
+    width:500px;
+    margin:auto;
     input{
-        width:250px;
+        width:400px;
         height:30px;
         font-size:1em;
     }
@@ -32,7 +32,7 @@ const Label = styled.label
 
 
 const Adress = styled.fieldset`
-    margin-top: 10px;
+    margin-top:40px;
 `;
 
 const ButtonStyle = styled.button`

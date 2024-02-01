@@ -1,6 +1,10 @@
-import { useTable, usePagination, useGlobalFilter } from 'react-table';
-import styled from 'styled-components';
-
+import {
+  useTable,
+  usePagination,
+  useGlobalFilter,
+  useSortBy,
+} from "react-table";
+import styled from "styled-components";
 
 const Styles = styled.div`
   padding: 1rem;
@@ -16,9 +20,8 @@ const Styles = styled.div`
     tr:nth-child(even) {
       background-color: #d2fdb3;
     }
-    tr:hover{
-      background-color: #feeb67
-    }
+    tbody tr:hover {
+      background-color: #feeb67;
     }
 
     th,
@@ -28,25 +31,51 @@ const Styles = styled.div`
       :last-child {
         border-right: 0;
       }
+      thead th:hover {
+        background-color: #ffffff !important;
+      }
     }
   }
 `;
 
 const HeaderTable = styled.div`
- width:100%;
- display:flex;
- justify-content: space-between;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
 `;
 
 const FooterTable = styled.div`
-with:100%;
-display:flex;
-justify-content: space-between;
-`
+  with: 100%;
+  display: flex;
+  justify-content: space-between;
+`;
 
-
+const SortIcon = styled.span`
+  flex-direction:column;
+  cursor: pointer;
+  display: flex;
+  gap: 4px;
+  align-items: center;
+  justify-content: center;
+  margin-left: 5px;
+  svg {
+    fill: currentColor;
+  }
+`;
 
 const Table = ({ columns, data }) => {
+  const svgUp = (color) => (
+    <svg width="20" height="10" viewBox="0 0 10 5" xmlns="http://www.w3.org/2000/svg">
+      <path d="M 0 5 L 10 5 L 5 0 Z" fill={color} />
+    </svg>
+  );
+
+  const svgDown = (color) => (
+    <svg width="20" height="10" viewBox="0 0 10 5" xmlns="http://www.w3.org/2000/svg">
+      <path d="M 0 0 L 10 0 L 5 5 Z" fill={color} />
+    </svg>
+  );
+
   const {
     getTableProps,
     getTableBodyProps,
@@ -70,10 +99,9 @@ const Table = ({ columns, data }) => {
       initialState: { pageIndex: 0 },
     },
     useGlobalFilter,
+    useSortBy,
     usePagination
   );
-
-
 
   const firstRowOnPage = pageIndex * pageSize + 1;
   const lastRowOnPage = pageIndex * pageSize + page.length;
@@ -84,11 +112,11 @@ const Table = ({ columns, data }) => {
       <HeaderTable>
         <select
           value={pageSize}
-          onChange={e => {
+          onChange={(e) => {
             setPageSize(Number(e.target.value));
           }}
         >
-          {[10, 25, 50, 100, 200].map(pageSize => (
+          {[10, 25, 50, 100, 200].map((pageSize) => (
             <option key={pageSize} value={pageSize}>
               {pageSize}
             </option>
@@ -102,24 +130,45 @@ const Table = ({ columns, data }) => {
       </HeaderTable>
       <table {...getTableProps()}>
         <thead>
-          {headerGroups.map(headerGroup => (
+          {headerGroups.map((headerGroup) => (
             <tr {...headerGroup.getHeaderGroupProps()}>
-              {headerGroup.headers.map(column => (
-                <th {...column.getHeaderProps()}>{column.render('Header')}</th>
+              {headerGroup.headers.map((column) => (
+                <th {...column.getHeaderProps(column.getSortByToggleProps())}>
+                  {column.render("Header")}
+                  <SortIcon>
+                  {column.isSorted
+                    ? (column.isSortedDesc
+                        ? <>
+                            {svgUp("lightgrey")}
+                            {svgDown("black")}
+                          </>
+                        : <>
+                            {svgUp("black")}
+                            {svgDown("lightgrey")}
+                          </>)
+                    : <>
+                        {svgUp("lightgrey")}
+                        {svgDown("lightgrey")}
+                      </>
+                  }
+                </SortIcon>
+                </th>
               ))}
             </tr>
           ))}
         </thead>
         <tbody {...getTableBodyProps()}>
-          {page.map(row => {
+          {page.map((row) => {
             prepareRow(row);
             return (
               <tr {...row.getRowProps()}>
-                {row.cells.map(cell => {
-                  const cellValue = cell.value instanceof Date ? cell.value.toLocaleDateString() : cell.render('Cell');
+                {row.cells.map((cell) => {
+                  const cellValue =
+                    cell.value instanceof Date
+                      ? cell.value.toLocaleDateString()
+                      : cell.render("Cell");
                   return <td {...cell.getCellProps()}>{cellValue}</td>;
                 })}
-
               </tr>
             );
           })}
@@ -145,8 +194,6 @@ const Table = ({ columns, data }) => {
 
 export default Table;
 
-
-
 const Pagination = ({
   pageIndex,
   pageCount,
@@ -164,31 +211,37 @@ const Pagination = ({
     startPage = endPage - 4 <= 0 ? 0 : endPage - 4;
   }
 
-  const pages = Array.from({ length: (endPage - startPage) + 1 }, (_, index) => startPage + index);
+  const pages = Array.from(
+    { length: endPage - startPage + 1 },
+    (_, index) => startPage + index
+  );
 
   return (
     <div>
       <button onClick={() => gotoPage(0)} disabled={!canPreviousPage}>
-        {'<<'}
-      </button>{' '}
+        {"<<"}
+      </button>{" "}
       <button onClick={() => previousPage()} disabled={!canPreviousPage}>
-        {'Previous'}
-      </button>{' '}
-      {pages.map(page => (
-        <button key={page} onClick={() => gotoPage(page)} disabled={pageIndex === page}>
+        {"Previous"}
+      </button>{" "}
+      {pages.map((page) => (
+        <button
+          key={page}
+          onClick={() => gotoPage(page)}
+          disabled={pageIndex === page}
+        >
           {page + 1}
         </button>
       ))}
       <button onClick={() => nextPage()} disabled={!canNextPage}>
-        {'Next'}
-      </button>{' '}
+        {"Next"}
+      </button>{" "}
       <button onClick={() => gotoPage(pageCount - 1)} disabled={!canNextPage}>
-        {'>>'}
-      </button>{' '}
+        {">>"}
+      </button>{" "}
     </div>
   );
 };
-
 
 const GlobalFilter = ({
   preGlobalFilteredRows,
@@ -197,10 +250,10 @@ const GlobalFilter = ({
 }) => {
   return (
     <span>
-      Search:{' '}
+      Search:{" "}
       <input
-        value={globalFilter || ''}
-        onChange={e => setGlobalFilter(e.target.value)}
+        value={globalFilter || ""}
+        onChange={(e) => setGlobalFilter(e.target.value)}
         placeholder={`${preGlobalFilteredRows.length} elements...`}
       />
     </span>

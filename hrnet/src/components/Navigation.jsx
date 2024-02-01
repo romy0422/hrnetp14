@@ -11,11 +11,12 @@ const StyledLink = styled(NavLink)`
     color: black;
     flex:0.2;
     width:300px;
-    background-color: #c8e6e6;
+    background-color: #ffffff;
     border-radius: 15px;
     font-weight: 400;
     vertical-align:middle;
     text-align:center;
+    font-size:2em;
     padding:10px;
 
     &.active {
@@ -35,7 +36,7 @@ const Navigation = () => {
 
         </StyledLink>
         <StyledLink to='/list'>
-            Current Employee
+            Current Employees
         </StyledLink>
         
         </NavigationContainer>

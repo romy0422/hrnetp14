@@ -7,29 +7,24 @@ const StyledH1 = styled.h1`
   width:100%;
   text-align:center;
   font-size:4em;
+  background-color:white;
 `;
 
 const ImgContainer = styled.div`
+  position:absolute;
+  width:100px;
+  height:100px;
   top:0;
   left:0;
-  width:100%;
-  height:100%;
-  background-image:url(${logo});
-  background-size:contain;
-  background-attachment: fixed;
-  background-position: center;
-  background-repeat: no-repeat;
-  z-index:1;
+  z-index:5;
 
 `;
 function App() {
   return (<>
-  <ImgContainer>
     <StyledH1>HRNet</StyledH1>
     <Navigation/>
+    <ImgContainer src= { logo }/>
     <ProvideRoutes/>
-    </ImgContainer>
-
     </>
   );
 }
