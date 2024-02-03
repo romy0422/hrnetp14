@@ -4,7 +4,7 @@ import {
   useGlobalFilter,
   useSortBy,
 } from "react-table";
-import styled from "styled-components";
+import styled, {css} from "styled-components";
 
 const Styles = styled.div`
   padding: 1rem;
@@ -61,6 +61,35 @@ const SortIcon = styled.span`
   svg {
     fill: currentColor;
   }
+`;
+
+
+const StyledButton = styled.button`
+  background: linear-gradient(to bottom, #d2fdb3, #000000);
+  opacity: 0.5;
+  border: none;
+  border-radius: 5px;
+  color: black;
+  padding: 5px 20px;
+  wdth:70px;
+  height:50px;
+  font-size:1em;
+  cursor: pointer;
+  margin: 10px 2px;
+  transition: all 0.3s ease;
+
+  &:hover {
+    opacity: 1;
+    color: white;
+  }
+
+  ${({ active }) =>
+    active &&
+    css`
+      background: #000;
+      opacity: 1;
+      color:white;
+    `}
 `;
 
 const Table = ({ columns, data }) => {
@@ -193,7 +222,6 @@ const Table = ({ columns, data }) => {
 };
 
 export default Table;
-
 const Pagination = ({
   pageIndex,
   pageCount,
@@ -211,37 +239,27 @@ const Pagination = ({
     startPage = endPage - 4 <= 0 ? 0 : endPage - 4;
   }
 
-  const pages = Array.from(
-    { length: endPage - startPage + 1 },
-    (_, index) => startPage + index
-  );
+  const pages = Array.from({ length: endPage - startPage + 1 }, (_, index) => startPage + index);
 
   return (
     <div>
-      <button onClick={() => gotoPage(0)} disabled={!canPreviousPage}>
-        {"<<"}
-      </button>{" "}
-      <button onClick={() => previousPage()} disabled={!canPreviousPage}>
-        {"Previous"}
-      </button>{" "}
+      <StyledButton onClick={() => gotoPage(0)} disabled={!canPreviousPage}>&laquo;</StyledButton>
+      <StyledButton onClick={() => previousPage()} disabled={!canPreviousPage}>Previous</StyledButton>
       {pages.map((page) => (
-        <button
+        <StyledButton
           key={page}
+          active={pageIndex === page}
           onClick={() => gotoPage(page)}
-          disabled={pageIndex === page}
         >
           {page + 1}
-        </button>
+        </StyledButton>
       ))}
-      <button onClick={() => nextPage()} disabled={!canNextPage}>
-        {"Next"}
-      </button>{" "}
-      <button onClick={() => gotoPage(pageCount - 1)} disabled={!canNextPage}>
-        {">>"}
-      </button>{" "}
+      <StyledButton onClick={() => nextPage()} disabled={!canNextPage}>Next</StyledButton>
+      <StyledButton onClick={() => gotoPage(pageCount - 1)} disabled={!canNextPage}>&raquo;</StyledButton>
     </div>
   );
 };
+
 
 const GlobalFilter = ({
   preGlobalFilteredRows,
