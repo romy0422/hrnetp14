@@ -62,8 +62,8 @@ const Form = ({ statusModal }) => {
     const [formData, setFormData] = useState({
         firstName: '',
         lastName: '',
-        dateOfBirth: new Date(),
-        startDate: new Date(),
+        dateOfBirth: '',
+        startDate: '',
         street: '',
         city: '',
         state: null,
@@ -88,8 +88,8 @@ const Form = ({ statusModal }) => {
         setFormData({
             firstName: '',
             lastName: '',
-            dateOfBirth: new Date(),
-            startDate: new Date(),
+            dateOfBirth: '',
+            startDate: '',
             street: '',
             city: '',
             state: null,

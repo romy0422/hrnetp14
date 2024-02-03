@@ -6,36 +6,34 @@ import { setData, setError } from '../reduxCode/dataSlice';
 import { parse, compareAsc, format, parseISO, isValid } from 'date-fns';
 
 function formatStandard(dateInput) {
-    if (dateInput instanceof Date && isValid(dateInput)) {
-        return format(dateInput, 'dd/MM/yyyy');
-    }
-    if (typeof dateInput === 'string') {
-        let parsedDate = parseISO(dateInput);
-        if (isValid(parsedDate)) {
-            return format(parsedDate, 'dd/MM/yyyy');
-        }
 
-        const formatsToTry = ['yyyy-MM-dd', 'MM/dd/yyyy', 'dd-MM-yyyy', 'dd/MM/yyyy'];
-        for (let formatString of formatsToTry) {
-            parsedDate = parse(dateInput, formatString, new Date());
-            if (isValid(parsedDate)) {
-                return format(parsedDate, 'dd/MM/yyyy');
-            }
-        }
-    }
-    return 'N/A';
+  let parsedDate;
+  if (typeof dateInput === 'string') {
+      parsedDate = parseISO(dateInput);
+      if (!isValid(parsedDate)) {
+          const formatsToTry = ['yyyy-MM-dd', 'MM/dd/yyyy', 'dd-MM-yyyy', 'dd/MM/yyyy'];
+          parsedDate = formatsToTry.reduce((acc, formatString) => {
+              if (isValid(acc)) return acc;
+              return parse(dateInput, formatString, new Date());
+          }, parsedDate);
+      }
+  } else if (dateInput instanceof Date && isValid(dateInput)) {
+      parsedDate = dateInput;
+  }
+
+  return isValid(parsedDate) ? format(parsedDate, 'dd/MM/yyyy') : 'N/';
 }
+
 
 const List = () => {
     const dispatch = useDispatch();
     const errorMessage = useSelector((state) => state.data.error);
     const data = useSelector((state) => state.data.items);
+
     const compareDates = (rowA, rowB, columnId, desc) => {
       const formatString = 'dd/MM/yyyy';
-
       const dateA = parse(rowA.values[columnId], formatString, new Date());
       const dateB = parse(rowB.values[columnId], formatString, new Date());
-
       return compareAsc(dateA, dateB);
     };
 
