@@ -3,7 +3,21 @@ import Table from '../modules/Table';
 import { fetchData } from '../serviceApi/service';
 import { useDispatch, useSelector } from 'react-redux';
 import { setData, setError } from '../reduxCode/dataSlice';
-import { parse, compareAsc, format } from 'date-fns';
+import { parse, compareAsc, format, parseISO, isValid } from 'date-fns';
+
+
+function formatStandard(dateInput) {
+  if (dateInput instanceof Date && isValid(dateInput)) {
+      return format(dateInput, 'dd/MM/yyyy');
+  }
+  if (typeof dateInput === 'string') {
+      const parsedIsoDate = parseISO(dateInput);
+      if (isValid(parsedIsoDate)) {
+          return format(parsedIsoDate, 'dd/MM/yyyy');
+      }
+  }
+  return dateInput;
+}
 
 const List = () => {
     const dispatch = useDispatch();
@@ -40,12 +54,15 @@ const List = () => {
     const columns = useMemo(() => [
         { Header: 'First Name', accessor: 'firstName' },
         { Header: 'Last Name', accessor: 'lastName' },
-        { Header: 'Start Date', accessor: 'startDate', sortType: compareDates },
+        { Header: 'Start Date', accessor: 'startDate', sortType: compareDates, Cell: ({ value }) => formatStandard(value)
+      },
         { Header: 'Department', accessor: 'department' },
-        { Header: 'Date of Birth', accessor: 'dateOfBirth', sortType: compareDates },
+        { Header: 'Date of Birth', accessor: 'dateOfBirth', Cell: ({ value }) => formatStandard(value)
+
+      },
         { Header: 'Street', accessor: 'street' },
         { Header: 'City', accessor: 'city' },
-        { Header: 'State', accessor: 'state' },
+        { Header: 'State', accessor: 'state.name' },
         { Header: 'Zip Code', accessor: 'zipCode' },
     ], []);
 

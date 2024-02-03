@@ -13,7 +13,7 @@ const Styles = styled.div`
     border-spacing: 0;
     width: 100%;
     border: 1px solid black;
-
+    margin:10px auto;
     tr:nth-child(odd) {
       background-color: #fff;
     }

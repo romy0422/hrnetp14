@@ -1,4 +1,4 @@
-import {NavLink} from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
 
 const NavigationContainer = styled.nav`
@@ -16,30 +16,36 @@ const StyledLink = styled(NavLink)`
     font-weight: 400;
     vertical-align:middle;
     text-align:center;
-    font-size:2em;
+    font-size:1em;
     padding:10px;
+    z-index:5;
 
     &.active {
         border:7px solid #baf000;
         padding:3px;
         color: #000000;
     }
+    &:hover{
+        background-color:#e3ff84;
+    }
+    `
 
-`
+
 const Navigation = () => {
 
-    return(
+    return (<>
         <NavigationContainer>
-        
-        <StyledLink to='/'>
-            Home
+            <StyledLink to='/'>
+                Home
 
-        </StyledLink>
-        <StyledLink to='/list'>
-            Current Employees
-        </StyledLink>
-        
+            </StyledLink>
+            <StyledLink to='/list'>
+                Current Employees
+            </StyledLink>
+
         </NavigationContainer>
+    </>
+
     )
 }
 

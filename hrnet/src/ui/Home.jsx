@@ -4,6 +4,7 @@ import { UtilModal } from 'utilmodal';
 import { useState } from 'react';
 
 const H1Title = styled.h1`
+    position:relative;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -25,7 +26,7 @@ const Home = () => {
     }
     return (
         <>
-            <UtilModal isOpen={isOpen} onClose={onClose} theme="pink">
+            <UtilModal isOpen={isOpen} onClose={onClose} theme="green">
                  Created Employee !
             </UtilModal>
             <H1Title>CREATE EMPLOYEE</H1Title>
