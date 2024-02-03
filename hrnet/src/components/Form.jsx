@@ -16,7 +16,7 @@ const FormContainer = styled.div`
     border-radius:25px;
     width:500px;
     box-shadow:2px 2px 40px rgb(0, 0,0,0.3);
-    margin:10px auto;
+    margin: 20px auto 80px auto;
     border: 1px solid #baf000;
     input{
         width:400px;
@@ -46,14 +46,18 @@ const ButtonStyle = styled.button`
     padding:10px;
     border-radius:15px;
     margin:20px auto;
+    cursor:pointer;
     font-size:1em;
+    &:hover{
+        background-color:#e3ff84;
+    }
 `
 
 
 
-const Form = ({statusModal}) => {
+const Form = ({ statusModal }) => {
     const dispatch = useDispatch();
-    const [errorMessage, setErrorMessage]= useState("");
+    const [errorMessage, setErrorMessage] = useState("");
 
     const [formData, setFormData] = useState({
         firstName: '',
@@ -64,7 +68,7 @@ const Form = ({statusModal}) => {
         city: '',
         state: null,
         zipCode: '',
-        department:null,
+        department: null,
     });
 
     const handleChange = (e) => {
@@ -73,13 +77,13 @@ const Form = ({statusModal}) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-    
+
         const isValid = validateForm(formData);
         if (!isValid) {
             setErrorMessage("Echecs: vos champs sont incorrectes")
             return;
         }
-    
+
         dispatch(addItem(formData));
         setFormData({
             firstName: '',
@@ -95,10 +99,10 @@ const Form = ({statusModal}) => {
         statusModal(true);
         setErrorMessage("");
     };
-    
+
     const validateForm = (data) => {
         const specialCharsRegex = /[^a-zA-Z0-9 ]/;
-    
+
         for (const key in data) {
             if (typeof data[key] === 'string' && (data[key].trim() === '' || specialCharsRegex.test(data[key]))) {
                 setErrorMessage(`Invalid input in ${key}`);
@@ -122,15 +126,15 @@ const Form = ({statusModal}) => {
 
             <Label htmlFor="dateOfBirth">Date of Birth</Label>
             <DatePicker
-                selected={formData.dateOfBirth ? new Date(formData.dateOfBirth) : null}
-                onChange={date => setFormData({ ...formData, dateOfBirth: date ? date.toLocaleDateString() : '' })}
+                selected={formData.dateOfBirth}
+                onChange={date => setFormData({ ...formData, dateOfBirth: date })}
                 dateFormat="dd/MM/yyyy"
             />
 
             <Label htmlFor="startDate">Start Date</Label>
             <DatePicker
-                selected={formData.startDate ? new Date(formData.startDate) : null}
-                onChange={date => setFormData({ ...formData, startDate: date ? date.toLocaleDateString() : '' })}
+                selected={formData.startDate}
+                onChange={date => setFormData({ ...formData, startDate: date })}
                 dateFormat="dd/MM/yyyy"
             />
 
@@ -147,16 +151,19 @@ const Form = ({statusModal}) => {
                 <Label htmlFor="state">State</Label>
                 <Autocomplete
                     id="state"
-                    options={stateOptions.map(state => ({
-                        label: state.name,
-                        value: state.name 
-                    }))}
-                    getOptionLabel={(option) => option.label}
+                    options={stateOptions}
+                    getOptionLabel={(option) => option.name}
                     onChange={(event, newValue) => {
-                        setFormData({ ...formData, state: newValue ? newValue.value : '' });
+                        setFormData({ ...formData, state: newValue || null });
                     }}
-                    value={stateOptions.find(option => option.value === formData.state) || null}
-                    renderInput={(params) => <TextField {...params} label={formData.state || "State"} />}
+                    value={formData.state ? stateOptions.find(option => option.abbreviation === formData.state.abbreviation) : null}
+                    renderInput={(params) => (
+                        <TextField
+                            {...params}
+                            variant="outlined"
+                            fullWidth
+                        />
+                    )}
                 />
 
                 <Label htmlFor="zipCode">Zip Code</Label>
@@ -164,18 +171,18 @@ const Form = ({statusModal}) => {
             </Adress>
 
             <Label htmlFor="department">Department</Label>
-           
+
             <Autocomplete
-                    id="department"
-                    options={formattedDepartmentOptions}
-                    getOptionLabel={(option) => option.label}
-                    value={formattedDepartmentOptions.find(option => option.value === formData.department) || null}
-                    onChange={(event, newValue) => {
-                        setFormData({ ...formData, department: newValue ? newValue.value : '' });
-                    }}
-                    renderInput={(params) => <TextField {...params} label={formData.department || "department" }/>}
-                />  
-                <p>{errorMessage}</p>
+                id="department"
+                options={formattedDepartmentOptions}
+                getOptionLabel={(option) => option.label}
+                value={formattedDepartmentOptions.find(option => option.value === formData.department) || null}
+                onChange={(event, newValue) => {
+                    setFormData({ ...formData, department: newValue ? newValue.value : '' });
+                }}
+                renderInput={(params) => <TextField {...params} />}
+            />
+            <p>{errorMessage}</p>
             <ButtonStyle type="submit">Submit</ButtonStyle>
         </form>
     </FormContainer>
