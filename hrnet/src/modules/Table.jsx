@@ -8,31 +8,79 @@ import styled, {css} from "styled-components";
 
 const Styles = styled.div`
   padding: 1rem;
-  z-index:5;
+  display: block;
+  overflow-x: hidden;
+  min-width:400px;
+  @media screen and (max-width: 800px) {
+    table, thead, tbody, tr, th, td {
+      display: block;
+      width:100%;
+    }
+
+    thead tr {
+      position: fixed;
+      top: 100%;
+      left: 100%;
+      font-size:1em;
+      width:fit-content;
+      background-color: #949494;
+      transform: translate(-100%, -100%);
+      padding:20px;
+      z-index:20;
+      border-radius:15px;
+    }
+
+    tr { border: 1px solid #ccc; margin-bottom: 20px;
+      &:hover{
+        background-color:grey;
+      }
+    }
+
+    td {
+      border: none;
+      border-bottom: 10px solid #d7d7d7;
+      position: relative;
+      height:fit-content;
+      min-height:30px;
+      text-align: center;
+      &:before {
+        content: attr(data-label);
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 45%;
+        white-space: nowrap;
+        text-align: left;
+        font-weight: bold;
+      }
+      &:hover{
+        background-color:white;
+      }
+    }
+  }
+
   table {
     border-spacing: 0;
     width: 100%;
-    border: 1px solid black;
-    margin:10px auto;
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+    margin: 10px auto;
+
     tr:nth-child(odd) {
       background-color: #fff;
     }
     tr:nth-child(even) {
-      background-color: #d2fdb3;
+      background-color: #e3e0cc;
     }
     tbody tr:hover {
-      background-color: #feeb67;
+      background-color: #e3e3d7;
     }
 
-    th,
-    td {
+    th, td {
       margin: 0;
       padding: 0.5rem;
       :last-child {
         border-right: 0;
-      }
-      thead th:hover {
-        background-color: #ffffff !important;
       }
     }
   }
@@ -187,20 +235,21 @@ const Table = ({ columns, data }) => {
           ))}
         </thead>
         <tbody {...getTableBodyProps()}>
-          {page.map((row) => {
-            prepareRow(row);
-            return (
-              <tr {...row.getRowProps()}>
-                {row.cells.map((cell) => {
-                  const cellValue =
-                    cell.value instanceof Date
-                      ? cell.value.toLocaleDateString()
-                      : cell.render("Cell");
-                  return <td {...cell.getCellProps()}>{cellValue}</td>;
-                })}
-              </tr>
-            );
-          })}
+        {page.map((row) => {
+  prepareRow(row);
+  return (
+    <tr {...row.getRowProps()}>
+      {row.cells.map((cell) => {
+        return (
+          <td {...cell.getCellProps()} data-label={cell.column.Header}>
+            {cell.render("Cell")}
+          </td>
+        );
+      })}
+    </tr>
+  );
+})}
+
         </tbody>
       </table>
       <FooterTable>

@@ -19,6 +19,7 @@ const StyledLink = styled(NavLink)`
     font-size:1em;
     padding:10px;
     z-index:5;
+    white-space: nowrap;
 
     &.active {
         border:7px solid #baf000;

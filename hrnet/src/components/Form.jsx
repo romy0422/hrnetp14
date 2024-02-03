@@ -10,22 +10,31 @@ import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 
 const FormContainer = styled.div`
+    position:relative;
     background-color:#d0d3df;
-    padding:60px;
+    padding:50px;
     font-size:1.5em;
     border-radius:25px;
-    width:500px;
+    width:100%;
+    min-width:200px;
+    max-width:500px;
     box-shadow:2px 2px 40px rgb(0, 0,0,0.3);
-    margin: 20px auto 80px auto;
+    margin: 20px
     border: 1px solid #baf000;
     input{
-        width:400px;
+        width:70%;
         height:30px;
         padding:5px 10px;
         font-size:1em;
     }
     p{
         color:red;
+    }
+    .react-datepicker-wrapper {
+        width:100%;
+    }
+    .MuiAutocomplete-root {
+        width:100%;
     }
 `;
 
