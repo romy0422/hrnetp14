@@ -5,18 +5,25 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setData, setError } from '../reduxCode/dataSlice';
 import { parse, compareAsc, format, parseISO, isValid } from 'date-fns';
 
-
 function formatStandard(dateInput) {
-  if (dateInput instanceof Date && isValid(dateInput)) {
-      return format(dateInput, 'dd/MM/yyyy');
-  }
-  if (typeof dateInput === 'string') {
-      const parsedIsoDate = parseISO(dateInput);
-      if (isValid(parsedIsoDate)) {
-          return format(parsedIsoDate, 'dd/MM/yyyy');
-      }
-  }
-  return dateInput;
+    if (dateInput instanceof Date && isValid(dateInput)) {
+        return format(dateInput, 'dd/MM/yyyy');
+    }
+    if (typeof dateInput === 'string') {
+        let parsedDate = parseISO(dateInput);
+        if (isValid(parsedDate)) {
+            return format(parsedDate, 'dd/MM/yyyy');
+        }
+
+        const formatsToTry = ['yyyy-MM-dd', 'MM/dd/yyyy', 'dd-MM-yyyy', 'dd/MM/yyyy'];
+        for (let formatString of formatsToTry) {
+            parsedDate = parse(dateInput, formatString, new Date());
+            if (isValid(parsedDate)) {
+                return format(parsedDate, 'dd/MM/yyyy');
+            }
+        }
+    }
+    return 'N/A';
 }
 
 const List = () => {
@@ -39,8 +46,8 @@ const List = () => {
             const fetchedData = await fetchData();
             dispatch(setData(fetchedData.map(d => ({
               ...d,
-              startDate: d.startDate ? format(new Date(d.startDate), 'dd/MM/yyyy') : '',
-              dateOfBirth: d.dateOfBirth ? format(new Date(d.dateOfBirth), 'dd/MM/yyyy') : '',
+              startDate: formatStandard(d.startDate) ? formatStandard(d.startDate) : '',
+              dateOfBirth: formatStandard(d.dateOfBirth) ? formatStandard(d.dateOfBirth) : '',
             }))));
           } catch (error) {
             console.error(error);
@@ -57,7 +64,7 @@ const List = () => {
         { Header: 'Start Date', accessor: 'startDate', sortType: compareDates, Cell: ({ value }) => formatStandard(value)
       },
         { Header: 'Department', accessor: 'department' },
-        { Header: 'Date of Birth', accessor: 'dateOfBirth', Cell: ({ value }) => formatStandard(value)
+        { Header: 'Date of Birth', accessor: 'dateOfBirth', sortType: compareDates, Cell: ({ value }) => formatStandard(value)
 
       },
         { Header: 'Street', accessor: 'street' },
