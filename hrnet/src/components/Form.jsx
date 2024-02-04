@@ -90,7 +90,7 @@ const Form = ({ statusModal }) => {
 
         const isValid = validateForm(formData);
         if (!isValid) {
-            setErrorMessage("Echecs: vos champs sont incorrectes")
+            setErrorMessage("Failed to send. Your input fields are incorrect. Please check and try again.")
             return;
         }
 

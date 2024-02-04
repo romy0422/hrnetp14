@@ -1,70 +1,54 @@
-# Getting Started with Create React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# HRnet
 
-## Available Scripts
+HRnet est une application web interne conçue pour la gestion des opérations des responsable aux ressources humaines au sein d'une entreprise. Développer avec Reactjs, cette application organise les informations des employés, permettant au personnel RH de visualiser une liste des employés et d'ajouter de nouveaux employés.
 
-In the project directory, you can run:
+## Demonstration
+une démo de l'application a été déployé via Gitpage. Vous pouvez y accéder avec ce lien:
+https://romy0422.github.io/hrnetp14/
 
-### `npm start`
+## Fonctionnalités
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- **Liste des employés :** Visualisez une liste complète des employés, avec des détails tels que le nom, le département, la date de début, entre-autres.
+- **Ajouter un nouvel employé :** Ajoutez facilement de nouveaux employés au système via un formulaire intuitif.
+- **Persistance des données :** Utilise Redux pour la gestion de l'état, assurant que les données des employés sont gérées de manière cohérente à travers l'application.
+- **Conception Responsive:** Une mise en page responsive qui garantit que l'application est accessible sur une large gamme d'appareils.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Technologies
 
-### `npm test`
+- React 18.2.0
+- Redux Toolkit 2.0.1
+- MUI Material 5.15.6
+- Styled Components 6.1.8
+- React Router Dom 6.21.1
+- Axios 1.6.5 pour les requêtes API
+- Date-Fns 3.3.1 pour la gestion des dates
+- React Table 7.8.0 pour afficher les listes d'employés
+- utilmodal 0.2.4 utilise la bibliotheque au theme personnalisable pour la modale
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Pour Commencer
 
-### `npm run build`
+Pour obtenir une copie locale, suivez les étapes suivantes.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Prérequis
+Node v18
+Reactjs v18
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### Installation
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+1. Clonez le dépôt
+```bash
+git clone https://github.com/romy0422/hrnetp14.git
+```
+2. Installez les paquets NPM
+```bash
+npm install
+```
+3. Démarrez l'application
+```bash
+cd hrnet
+npm start
+```
 
-### `npm run eject`
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
