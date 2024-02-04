@@ -1,6 +1,7 @@
 import ProvideRoutes from './routes/ProvideRoutes';
 import Navigation from './components/Navigation';
 import styled from 'styled-components';
+import { Global } from './style/global';
 
 const StyledH1 = styled.h1`
   width:100%;
@@ -14,6 +15,7 @@ const StyledH1 = styled.h1`
 
 function App() {
   return (<>
+  <Global/>
     <StyledH1>HRNet</StyledH1>
     <Navigation/>
     <ProvideRoutes/>

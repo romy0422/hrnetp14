@@ -19,7 +19,7 @@ const Styles = styled.div`
 
     thead tr {
       position: fixed;
-      top: 100%;
+      top: 90%;
       left: 100%;
       font-size:1em;
       width:fit-content;
@@ -41,7 +41,7 @@ const Styles = styled.div`
       border-bottom: 10px solid #d7d7d7;
       position: relative;
       height:fit-content;
-      min-height:30px;
+      min-height:20px;
       text-align: center;
       &:before {
         content: attr(data-label);
@@ -65,6 +65,7 @@ const Styles = styled.div`
     border-top: 1px solid black;
     border-bottom: 1px solid black;
     margin: 10px auto;
+    font-family: Helvetica, Arial, sans-serif;
 
     tr:nth-child(odd) {
       background-color: #fff;
@@ -78,7 +79,7 @@ const Styles = styled.div`
 
     th, td {
       margin: 0;
-      padding: 0.5rem;
+      padding:4px 0px;
       :last-child {
         border-right: 0;
       }
@@ -119,13 +120,18 @@ const StyledButton = styled.button`
   border-radius: 5px;
   color: black;
   padding: 5px 20px;
-  wdth:70px;
+  width:fit-content;
   height:50px;
   font-size:1em;
   cursor: pointer;
   margin: 10px 2px;
   transition: all 0.3s ease;
-
+  @media screen and (max-width:800px){
+    font-size:0.7em;
+    width:fit-content;
+    height:20px;
+    padding: 3px 10px;
+  }
   &:hover {
     opacity: 1;
     color: white;

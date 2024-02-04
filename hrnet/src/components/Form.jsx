@@ -14,6 +14,7 @@ const FormContainer = styled.div`
     background-color:#d0d3df;
     padding:50px;
     font-size:1.5em;
+    font-family: Helvetica, Arial, sans-serif;
     border-radius:25px;
     width:100%;
     min-width:200px;
