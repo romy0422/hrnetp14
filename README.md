@@ -1,7 +1,7 @@
 
 # HRnet
 
-HRnet est une application web interne conçue pour la gestion des opérations des responsable aux ressources humaines au sein d'une entreprise. Développer avec Reactjs, cette application organise les informations des employés, permettant au personnel RH de visualiser une liste des employés et d'ajouter de nouveaux employés.
+HRnet est une application web interne conçue pour la gestion des opérations des responsable aux ressources humaines au sein d'une entreprise. Développée avec Reactjs, cette application organise les informations des employés, permettant au personnel RH de visualiser une liste des employés et d'ajouter de nouveaux employés.
 
 ## Demonstration
 une démo de l'application a été déployé via Gitpage. Vous pouvez y accéder avec ce lien:
