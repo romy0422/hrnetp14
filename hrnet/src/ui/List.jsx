@@ -4,7 +4,17 @@ import { fetchData } from '../serviceApi/service';
 import { useDispatch, useSelector } from 'react-redux';
 import { setData, setError } from '../reduxCode/dataSlice';
 import { parse, compareAsc, format, parseISO, isValid } from 'date-fns';
+import styled from 'styled-components';
 
+
+const ContainerList = styled.div`
+  padding:20px;
+  position:relative;
+  z-index:20;
+  @media screen and (max-width:800px){
+    padding:0;
+  }
+`;
 function formatStandard(dateInput) {
 
   let parsedDate;
@@ -72,10 +82,10 @@ const List = () => {
     ], []);
 
     return (
-        <>
+        <ContainerList>
             <Table columns={columns} data={data} />
             {errorMessage && <p>Erreur : {errorMessage}</p>}
-        </>
+        </ContainerList>
     );
 }
 

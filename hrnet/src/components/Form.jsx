@@ -20,7 +20,7 @@ const FormContainer = styled.div`
     min-width:200px;
     max-width:500px;
     box-shadow:2px 2px 40px rgb(0, 0,0,0.3);
-    margin: 20px
+    margin: 50px auto;
     border: 1px solid #baf000;
     input{
         width:70%;

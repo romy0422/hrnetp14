@@ -21,11 +21,11 @@ const Styles = styled.div`
       position: fixed;
       top: 90%;
       left: 100%;
-      font-size:1em;
+      font-size:0.7em;
       width:fit-content;
       background-color: #949494;
       transform: translate(-100%, -100%);
-      padding:20px;
+      padding:10px;
       z-index:20;
       border-radius:15px;
     }
