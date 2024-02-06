@@ -112,8 +112,6 @@ const SortIcon = styled.span`
     fill: currentColor;
   }
 `;
-
-
 const StyledButton = styled.button`
   background: linear-gradient(to bottom, #d2fdb3, #000000);
   opacity: 0.5;
@@ -121,29 +119,31 @@ const StyledButton = styled.button`
   border-radius: 5px;
   color: black;
   padding: 5px 20px;
-  width:fit-content;
-  height:50px;
-  font-size:1em;
+  width: fit-content;
+  height: 50px;
+  font-size: 1em;
   cursor: pointer;
   margin: 10px 2px;
   transition: all 0.3s ease;
-  @media screen and (max-width:800px){
-    font-size:0.7em;
-    width:fit-content;
-    height:20px;
+  
+  @media screen and (max-width: 800px) {
+    font-size: 0.7em;
+    width: fit-content;
+    height: 20px;
     padding: 3px 10px;
   }
+
   &:hover {
     opacity: 1;
     color: white;
   }
 
-  ${({ active }) =>
-    active &&
+  ${({ $active }) =>
+    $active &&
     css`
       background: #000;
       opacity: 1;
-      color:white;
+      color: white;
     `}
 `;
 
@@ -302,13 +302,13 @@ const Pagination = ({
       <StyledButton onClick={() => gotoPage(0)} disabled={!canPreviousPage}>&laquo;</StyledButton>
       <StyledButton onClick={() => previousPage()} disabled={!canPreviousPage}>Previous</StyledButton>
       {pages.map((page) => (
-        <StyledButton
-          key={page}
-          active={pageIndex === page}
-          onClick={() => gotoPage(page)}
-        >
-          {page + 1}
-        </StyledButton>
+       <StyledButton
+       key={page}
+       $active={pageIndex === page}
+       onClick={() => gotoPage(page)}
+     >
+       {page + 1}
+     </StyledButton>
       ))}
       <StyledButton onClick={() => nextPage()} disabled={!canNextPage}>Next</StyledButton>
       <StyledButton onClick={() => gotoPage(pageCount - 1)} disabled={!canNextPage}>&raquo;</StyledButton>
