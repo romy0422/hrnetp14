@@ -80,6 +80,7 @@ const Styles = styled.div`
     th, td {
       margin: 0;
       padding:4px 0px;
+      min-width:100px;
       :last-child {
         border-right: 0;
       }
